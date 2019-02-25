@@ -16,6 +16,10 @@
 % later version.
 % Contact: etterguillaume@gmail.com
 
+close all
+clear all
+clc
+
 %% Auto-detect operating system
 if ispc
     separator = '\'; % For pc operating systems
@@ -24,17 +28,27 @@ else
 end
 
 %% Parameters
-spatial_downsampling = 3; % (Recommended range: 2 - 4. Downsampling significantly increases computational speed, but verify it does not
-isnonrigid = true; % If true, performs non-rigid registration (slower). If false, rigid alignment (faster).
+spatial_downsampling = 4; % (Recommended range: 2 - 4. Downsampling significantly increases computational speed, but verify it does not
+isnonrigid = false; % If true, performs non-rigid registration (slower). If false, rigid alignment (faster).
 analyse_behavior = true;
+
+% mod by celia
 copy_to_googledrive = true;
 if copy_to_googledrive;
     copydirpath = uigetdir([],'Please select the root folder in which files will be copied');
 end
+%copy_to_googledrive = true;
+% ^^ end mod by celia
+
 
 % Generate timestamp to save analysis
 script_start = tic;
-analysis_time =strcat(date,'_', num2str(hour(now)),'-',num2str(minute(now)),'-',num2str(floor(second(now))));
+% below doesn't work. Modified by Celia
+%analysis_time =strcat(date,'_', num2str(hour(now)),'-',num2str(minute(now)),'-',num2str(floor(second(now))));
+format shortg;
+c = clock;
+analysis_time = strcat(date, '_', num2str(c(4)), '-', num2str(c(5)), '-', num2str(floor(c(6))));
+% ^^ end Mod by Celia
 
 %% 1 - Create video object and save into matfile
 display('Step 1: Create video object');
@@ -62,8 +76,8 @@ disp(['Data analyzed in ' num2str(analysis_duration) 's']);
 if copy_to_googledrive;
     destination_path = char(strcat(copydirpath, separator, ms.Experiment));
     mkdir(destination_path);
-    copyfile('ms.mat', [destination_path separator 'ms.mat']);
-    copyfile('SFP.mat', [destination_path separator 'SFP.mat']);
+    copyfile([ms.dirName separator 'ms.mat'], [destination_path separator 'ms.mat']);
+    copyfile([ms.dirName separator 'SFP.mat'], [destination_path separator 'SFP.mat']);
     disp('Successfully copied ms and SFP files to GoogleDrive');
     try % This is to attempt to copy an existing behav file if you already analyzed it in the past
             copyfile([ms.dirName separator 'behav.mat'], [destination_path separator 'behav.mat']);
@@ -85,7 +99,7 @@ if analyse_behavior
     
     if copy_to_googledrive;
         destination_path = char(strcat(copydirpath, separator, ms.Experiment));
-        copyfile('behav.mat', [destination_path separator 'behav.mat']);
+        copyfile([ms.dirName separator 'behav.mat'], [destination_path separator 'behav.mat']);
         disp('Successfully copied behav file to GoogleDrive');
     end
 end

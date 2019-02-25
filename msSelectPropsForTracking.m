@@ -31,7 +31,9 @@ function behav = msSelectPropsForTracking(behav)
         rectangle('Position',rect,'LineWidth',2);
         
         display('Select LED');
-        hEllipse = imellipse;
+        %hEllipse = imellipse;
+        hEllipse = drawellipse;
+
         wait(hEllipse);
 %         [w, h] = ginput(1);
 %         w = uint16(round(w));

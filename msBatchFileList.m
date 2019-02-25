@@ -1,1 +1,1 @@
-/Users/guillaume/very_nice_data/mouse-45/H07_M45_S02/
+/Users/marcnormandin/Documents/miniscope_cam

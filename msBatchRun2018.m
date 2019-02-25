@@ -51,7 +51,8 @@ for folder_i = 1:length(file_list);
     %% Here starts the regular msRun2018 for each file
     % Generate timestamp to save analysis
     script_start = tic;
-    analysis_time =strcat(date,'_', num2str(hour(now)),'-',num2str(minute(now)),'-',num2str(floor(second(now))));
+    mnow = round(now);
+    analysis_time = '1' %strcat(date,'_', num2str(hour(mnow)),'-',num2str(minute(mnow)),'-',num2str(floor(second(mnow))));
     
     %% 1 - Create video object and save into matfile
     display('Step 1: Create video object');

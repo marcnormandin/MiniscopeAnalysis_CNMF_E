@@ -34,7 +34,7 @@ function behav = msSelectPropsForTracking(behav)
         %hEllipse = imellipse;
         hEllipse = drawellipse;
 
-        wait(hEllipse);
+        %wait(hEllipse);
 %         [w, h] = ginput(1);
 %         w = uint16(round(w));
 %         h = uint16(round(h));

@@ -82,15 +82,15 @@ function behav = msExtractBehavoir(behav, trackLength)
     position_q(:,1) = interp1(time,position(index,1),behav.time); %GE renamed from: position = interp1(time,position,behav.time);
     position_q(:,2) = interp1(time,position(index,2),behav.time); % Added by GE
     dt = median(diff(behav.time/1000)); 
-    position_q(:,1) = smooth(position_q(:,1),ceil(1/dt)); % GE renamed from: position = smoothts(position','b',ceil(1/dt))';
-    position_q(:,2) = smooth(position_q(:,2),ceil(1/dt)); % Added by GE
+    position_q(:,1) = smoothdata(position_q(:,1),ceil(1/dt)); % GE renamed from: position = smoothts(position','b',ceil(1/dt))';
+    position_q(:,2) = smoothdata(position_q(:,2),ceil(1/dt)); % Added by GE
     behav.position = position_q;
     
     dx = [0; diff(position_q(:,1))]; % GE modified
     dy = [0; diff(position_q(:,2))]; % GE modified
 
     behav.speed = sqrt((dx).^2+(dy).^2)/dt;
-    behav.speed = smooth(behav.speed,ceil(1/dt)); % GE renamed from: behav.speed = smoothts(behav.speed','b',ceil(1/dt));
+    behav.speed = smoothdata(behav.speed,ceil(1/dt)); % GE renamed from: behav.speed = smoothts(behav.speed','b',ceil(1/dt));
     behav.dt = dt;
     behav.trackLength = trackLength;
     behav.background = background; % GE this is to save the background image. Practical to plot data later on

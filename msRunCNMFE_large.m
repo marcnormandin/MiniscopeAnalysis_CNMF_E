@@ -251,5 +251,6 @@ ms.FiltTraces = neuron.C';
 ms.RawTraces = neuron.C_raw';
 ms.SFPs = neuron.reshape(neuron.A, 2);
 ms.numNeurons = size(ms.SFPs,3);
+ms.neuron = neuron;
 
 end
